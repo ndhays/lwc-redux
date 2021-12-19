@@ -4,6 +4,9 @@ import { logger, crashReporter } from './middleware'
 import { createReducerManager } from './reducerManager'
 import { createSelectorManager } from './selectorManager'
 
+// Configure environment for dev/debugging/logging
+const isDevelopment = true;
+
 // Exported Functions Usage:
 //
 // Redux: https://redux.js.org/api/store
@@ -38,10 +41,18 @@ const staticReducers = {}
 
 const reducerManager = createReducerManager(staticReducers)
 
+const developmentMiddleware = [
+    ...getDefaultMiddleware(),
+    logger,
+    crashReporter
+]
+
 const configureAppStore = (preloadedState) => {
     const store = configureStore({
         reducer: reducerManager.reduce,
-        middleware: [...getDefaultMiddleware(), logger, crashReporter],
+        middleware: [
+            ...(isDevelopment ? developmentMiddleware : []),
+        ],
         preloadedState
         // enhancers: [monitorReducersEnhancer]
     })
