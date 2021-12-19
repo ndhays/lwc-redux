@@ -6,8 +6,10 @@ export function createSelectorManager() {
     return {
 
         register: (name, ...selectorArgs) => {
-            if (selectorArgs.length < 2) selectorArgs.push(result => result)
-            selectors[name] = createSelector(...selectorArgs);
+            if (selectorArgs.length < 2) {
+                selectorArgs.push(result => result)
+            }
+            selectors[name] = createSelector(...selectorArgs)
             return selectors[name]
         },
 
