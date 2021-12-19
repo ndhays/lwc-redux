@@ -91,7 +91,7 @@ myStore.observeSelector = (selector, onChange) => {
 myStore.subscribeToSelector = (selector, callback) => {
     let selFn = typeof selector === 'string' ? myStore.selectorManager.get(selector) : selector;
     if (typeof selFn !== 'function') {
-        throw new Error('First argument of waitFor must be a registered selector or a valid selector function')
+        throw new Error('First argument of subscribeToSelector must be a registered selector or a valid selector function')
     }
     return myStore.observeSelector(selFn, callback)
 }
