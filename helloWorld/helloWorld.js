@@ -50,12 +50,15 @@ export default class HelloWorld extends LightningElement {
         this.thunkIncrement()
     }
 
-    // increment after a 2s delay (async example)
+    // example of async (thunk) action
     async thunkIncrement() {
+        let state1, state2;
         await dispatch(async (dispatch, getState) => {
+            state1 = getState()
             dispatch(actions.increment())
-            await new Promise(r => { setTimeout(r, 2000); })
+            state2 = getState()
+            await new Promise(r => { setTimeout(r, 2000) })
         })
-        console.log('waited 2 seconds...')
+        console.log('waited 2 seconds...', state1, state2)
     }
 }
